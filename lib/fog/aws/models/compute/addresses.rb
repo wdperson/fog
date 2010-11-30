@@ -11,7 +11,7 @@ module Fog
         attribute :server
 
         model Fog::AWS::Compute::Address
-        
+
         # Used to create an IP address
         #
         # ==== Returns
@@ -24,7 +24,7 @@ module Fog
         #
         # The IP address can be retreived by running AWS.addresses.get("test").  See get method below.
         #
-        
+
         def initialize(attributes)
           self.filters ||= {}
           super
@@ -54,7 +54,7 @@ module Fog
         #  >
         #>>
 
-        def all(filters = @filters)
+        def all(filters = filters)
           unless filters.is_a?(Hash)
             Formatador.display_line("[yellow][WARN] all with #{filters.class} param is deprecated, use all('public-ip' => []) instead[/] [light_black](#{caller.first})[/]")
             filters = {'public-ip' => [*filters]}
@@ -78,7 +78,7 @@ module Fog
         #
         # You can run the following command to get the details:
         # AWS.addresses.get("76.7.46.54")
-        
+
         def get(public_ip)
           if public_ip
             self.class.new(:connection => connection).all('public-ip' => public_ip).first
