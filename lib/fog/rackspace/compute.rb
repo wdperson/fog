@@ -3,6 +3,9 @@ module Fog
     class Compute < Fog::Service
 
       requires :rackspace_api_key, :rackspace_username
+      # NOTE: recognizes clause delegates to Fog::Rackspace.authenticate's so 
+      #       we also declare those parameters that the authenticate expects...
+      recognizes :rackspace_auth_url, :persistent
 
       model_path 'fog/rackspace/models/compute'
       model       :flavor
@@ -92,7 +95,7 @@ module Fog
               :host     => @host,
               :path     => "#{@path}/#{params[:path]}"
             }))
-          rescue Excon::Errors::Error => error
+          rescue Excon::Errors::HTTPStatusError => error
             raise case error
             when Excon::Errors::NotFound
               Fog::Rackspace::Compute::NotFound.slurp(error)

@@ -3,6 +3,7 @@ module Fog
     class Compute < Fog::Service
 
       requires :bluebox_api_key, :bluebox_customer_id
+      recognizes :bluebox_host, :bluebox_port, :bluebox_scheme, :persistent
 
       model_path 'fog/bluebox/models/compute'
       model       :flavor
@@ -68,7 +69,7 @@ module Fog
 
           begin
             response = @connection.request(params.merge!({:host => @host}))
-          rescue Excon::Errors::Error => error
+          rescue Excon::Errors::HTTPStatusError => error
             raise case error
             when Excon::Errors::NotFound
               Fog::Bluebox::Compute::NotFound.slurp(error)

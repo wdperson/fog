@@ -84,7 +84,7 @@ module Fog
         end
 
         def key_pair=(new_keypair)
-          key_name = new_keypair && new_keypair.name
+          self.key_name = new_keypair && new_keypair.name
         end
 
         def private_key_path
@@ -151,6 +151,7 @@ module Fog
 
         def setup(credentials = {})
           requires :identity, :ip_address, :username
+          require 'json'
           sleep(10) # takes a bit before EC2 instances will play nice
           commands = [
             %{mkdir .ssh},
