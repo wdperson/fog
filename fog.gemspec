@@ -7,8 +7,8 @@ Gem::Specification.new do |s|
   ## If your rubyforge_project name is different, then edit it and comment out
   ## the sub! line in the Rakefile
   s.name              = 'fog'
-  s.version           = '0.3.27'
-  s.date              = '2010-12-04'
+  s.version           = '0.3.31'
+  s.date              = '2010-12-10'
   s.rubyforge_project = 'fog'
 
   ## Make sure your summary is short. The description may be as long
@@ -43,11 +43,10 @@ Gem::Specification.new do |s|
   ## List your runtime dependencies here. Runtime dependencies are those
   ## that are needed for an end user to actually USE your code.
   s.add_dependency('builder')
-  s.add_dependency('excon', '>=0.2.8')
+  s.add_dependency('excon', '>=0.3.3')
   s.add_dependency('formatador', '>=0.0.16')
   s.add_dependency('json')
   s.add_dependency('mime-types')
-  s.add_dependency('named-parameters', '>=0.0.14')
   s.add_dependency('net-ssh', '>=2.0.23')
   s.add_dependency('nokogiri', '>=1.4.4')
   s.add_dependency('ruby-hmac')
@@ -514,6 +513,7 @@ Gem::Specification.new do |s|
     lib/fog/slicehost/parsers/compute/get_images.rb
     lib/fog/slicehost/parsers/compute/get_slice.rb
     lib/fog/slicehost/parsers/compute/get_slices.rb
+    lib/fog/slicehost/parsers/compute/get_zones.rb
     lib/fog/slicehost/requests/compute/create_slice.rb
     lib/fog/slicehost/requests/compute/delete_slice.rb
     lib/fog/slicehost/requests/compute/get_backups.rb
@@ -523,6 +523,7 @@ Gem::Specification.new do |s|
     lib/fog/slicehost/requests/compute/get_images.rb
     lib/fog/slicehost/requests/compute/get_slice.rb
     lib/fog/slicehost/requests/compute/get_slices.rb
+    lib/fog/slicehost/requests/compute/get_zones.rb
     lib/fog/slicehost/requests/compute/reboot_slice.rb
     lib/fog/terremark.rb
     lib/fog/terremark/bin.rb
@@ -600,6 +601,8 @@ Gem::Specification.new do |s|
     lib/fog/vcloud/requests/get_versions.rb
     lib/fog/vcloud/requests/login.rb
     lib/fog/vcloud/terremark/ecloud.rb
+    lib/fog/vcloud/terremark/ecloud/models/backup_internet_service.rb
+    lib/fog/vcloud/terremark/ecloud/models/backup_internet_services.rb
     lib/fog/vcloud/terremark/ecloud/models/catalog.rb
     lib/fog/vcloud/terremark/ecloud/models/catalog_item.rb
     lib/fog/vcloud/terremark/ecloud/models/firewall_acl.rb
@@ -766,6 +769,15 @@ Gem::Specification.new do |s|
     tests/brightbox/models/compute/flavors_tests.rb
     tests/brightbox/models/compute/server_tests.rb
     tests/brightbox/models/compute/servers_tests.rb
+    tests/brightbox/requests/compute/account_tests.rb
+    tests/brightbox/requests/compute/api_client_tests.rb
+    tests/brightbox/requests/compute/cloud_ip_tests.rb
+    tests/brightbox/requests/compute/image_tests.rb
+    tests/brightbox/requests/compute/interface_tests.rb
+    tests/brightbox/requests/compute/server_tests.rb
+    tests/brightbox/requests/compute/server_type_tests.rb
+    tests/brightbox/requests/compute/user_tests.rb
+    tests/brightbox/requests/compute/zone_tests.rb
     tests/go_grid/helper.rb
     tests/go_grid/requests/compute/image_tests.rb
     tests/google/models/storage/directories_tests.rb

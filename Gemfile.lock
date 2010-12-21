@@ -1,13 +1,12 @@
 PATH
   remote: .
   specs:
-    fog (0.3.27)
+    fog (0.3.31)
       builder
-      excon (>= 0.2.8)
+      excon (>= 0.3.3)
       formatador (>= 0.0.16)
       json
       mime-types
-      named-parameters (>= 0.0.14)
       net-ssh (>= 2.0.23)
       nokogiri (>= 1.4.4)
       ruby-hmac
@@ -15,14 +14,13 @@ PATH
 GEM
   remote: http://rubygems.org/
   specs:
-    builder (2.1.2)
-    excon (0.2.8)
+    builder (3.0.0)
+    excon (0.3.3)
     formatador (0.0.16)
     gestalt (0.0.11)
       formatador (>= 0.0.12)
     json (1.4.6)
     mime-types (1.16)
-    named-parameters (0.0.14)
     net-ssh (2.0.23)
     nokogiri (1.4.4)
     rake (0.8.7)
@@ -37,12 +35,11 @@ PLATFORMS
 
 DEPENDENCIES
   builder
-  excon (>= 0.2.8)
+  excon (>= 0.3.3)
   fog!
   formatador (>= 0.0.16)
   json
   mime-types
-  named-parameters (>= 0.0.14)
   net-ssh (>= 2.0.23)
   nokogiri (>= 1.4.4)
   rake

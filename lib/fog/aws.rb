@@ -1,4 +1,6 @@
 require 'nokogiri'
+
+require File.join(File.dirname(__FILE__), 'core')
 require 'fog/core/parser'
 
 module Fog
@@ -9,6 +11,7 @@ module Fog
     service_path 'fog/aws'
     service 'cdn'
     service 'compute'
+    service 'dns'
     service 'ec2'
     service 'elb'
     service 'iam'

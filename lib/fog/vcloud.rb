@@ -1,4 +1,6 @@
 require 'nokogiri'
+
+require File.join(File.dirname(__FILE__), 'core')
 require 'fog/core/parser'
 
 require 'builder'
@@ -19,7 +21,7 @@ end
 module Fog
   class Vcloud < Fog::Service
 
-    requires :username, :password, :module, :versions_uri
+    requires :username, :password, :versions_uri
     recognizes :version, :persistent
 
     model_path 'fog/vcloud/models'

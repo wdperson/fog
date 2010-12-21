@@ -32,8 +32,8 @@ module Fog
       end
 
       class Real
-        requires :terremark_ecloud_password, :terremark_ecloud_username
-        recognizes :host, :path, :port, :scheme, :persistent
+        # requires :terremark_ecloud_password, :terremark_ecloud_username
+        # recognizes :host, :path, :port, :scheme, :persistent
         
         include Fog::Terremark::Shared::Real
         include Fog::Terremark::Shared::Parser
