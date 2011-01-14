@@ -27,9 +27,13 @@ A high level interface to each cloud is provided through collections, such as `i
 You can see a list of available collections by calling `collections` on the connection object. You can try it out using the `fog` command:
 
   >> AWS.collections
-  [:addresses, :directories, :files, :flavors, :images, :key_pairs, :security_groups, :servers, :snapshots, :volumes]
+  [:addresses, :directories, ..., :volumes, :zones]
 
-Some collections are available across multiple providers. For example, compute providers have +flavors+, +images+ and +servers+, and storage providers have +directory+ and +file+.
+Some collections are available across multiple providers:
+
+* compute providers have +flavors+, +images+ and +servers+
+* dns providers have +zones+ and +records+
+* storage providers have +directories+ and +files+
 
 Collections share basic CRUD type operations, such as:
 * +all+ - fetch every object of that type from the provider.
@@ -99,21 +103,28 @@ Play around and use the console to explore or check out the {getting started gui
 
 geemus says: "That should give you everything you need to get started, but let me know if there is anything I can do to help!"
 
+== Providers
+
 You should try out the (varying) support fog has for:
-* {AWS}[http://aws.amazon.com] [{Compute}[http://aws.amazon.com/ec2], {ELB}[http://aws.amazon.com/elasticloadbalancing], {Storage}[http://aws.amazon.com/s3], {SimpleDB}[http://aws.amazon.com/simpledb]]
-* {Blue Box Group}[http://www.blueboxgrp.com] [{Compute}[http://www.blueboxgrp.com/blocks]]
-* {Brightbox}[http://www.brightbox.co.uk] [{Compute}[http://beta.brightbox.com/]]
+* {AWS}[http://aws.amazon.com] [{Compute}[http://aws.amazon.com/ec2], {DNS}[http://aws.amazon.com/route53], {ELB}[http://aws.amazon.com/elasticloadbalancing], {Storage}[http://aws.amazon.com/s3], {SimpleDB}[http://aws.amazon.com/simpledb]]
+* <b><em>{Blue Box Group}[http://www.blueboxgrp.com]</em></b> [{Compute}[http://www.blueboxgrp.com/blocks]]
+* <b><em>{Brightbox}[http://www.brightbox.co.uk]</em></b> [{Compute}[http://beta.brightbox.com/]]
 * {Google}[http://www.google.com] [{Storage}[http://code.google.com/apis/storage]]
+* {Linode}[http://www.linode.com] [{DNS}[http://www.linode.com]]
 * Local [Storage]
 * {Rackspace}[http://www.rackspace.com] [{Compute}[http://www.rackspacecloud.com/cloud_hosting_products/servers], {Storage}[http://www.rackspacecloud.com/cloud_hosting_products/files]]
 * {Slicehost}[http://www.slicehost.com] [{Compute}[http://www.slicehost.com], {DNS}[http://www.slicehost.com]]
 * {Terremark}[http://www.terremark.com] [{vCloud Express}[http://vcloudexpress.terremark.com]]
+* {Zerigo}[http://www.zerigo.com] [{DNS}[http://www.zerigo.com/managed-dns]]
 
 There are also the basics of these providers (that could use your love):
-* {GoGrid}[http://www.gogrid.com] [{Compute}[http://www.gogrid.com]]
-* {Linode}[http://www.linode.com] [{Compute}[http://www.linode.com], {DNS}[http://www.linode.com]]
+* <b><em>{GoGrid}[http://www.gogrid.com]</b></em> [{Compute}[http://www.gogrid.com]]
+* {Linode}[http://www.linode.com] [{Compute}[http://www.linode.com]]
 * {New Servers}[http://www.newservers.com] [{Compute}[http://www.newservers.com]]
-* {Zerigo}[http://www.zerigo.com] [{DNS}[http://www.zerigo.com/managed-dns]]
+
+Special thanks to providers listed in <b><em>bold italics</em></b> for donating resources for fog tests!
+
+== Additional Resources
 
 Enjoy, and let me know what I can do to continue improving fog!
 
@@ -130,6 +141,14 @@ Enjoy, and let me know what I can do to continue improving fog!
 http://www.engineyard.com/images/logo.png
 
 All new work on fog is sponsored by {Engine Yard}[http://engineyard.com]
+
+== T-Shirts
+
+Wonder how you can get a shirt? Look no further!
+
+* Blue shirts go to people who have contributed indirectly, where contribution is a judgement call on geemus's part (but he is a pretty nice guy).
+* Grey shirts and a follow from @fog go to people who have made it on to the {contributors list}[https://github.com/geemus/fog/contributors] by submitting code.
+* Black shirts go to people who have made it on to the {collaborators list}[https://github.com/api/v2/json/repos/show/geemus/fog/collaborators] by coercing geemus into adding them (geemus is currently the only member of this list).
 
 == Copyright
 

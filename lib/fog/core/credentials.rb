@@ -31,8 +31,12 @@ module Fog
   # @raise [LoadError] Configuration unavailable in configuration file
   def self.credentials
     @credentials  ||= begin
-      credentials = YAML.load_file(credentials_path)
-      (credentials && credentials[credential]) or raise LoadError.new missing_credentials
+      if File.exists?(credentials_path)
+        credentials = YAML.load_file(credentials_path)
+        (credentials && credentials[credential]) or raise LoadError.new missing_credentials
+      else
+        {}
+      end
     end
   end
 
@@ -73,7 +77,7 @@ An alternate file may be used by placing its path in the FOG_RC environment vari
   :terremark_username:
   :terremark_password:
   :zerigo_email:
-  :zerigo_password:
+  :zerigo_token:
 #
 # End of Fog Credentials File
 #######################################################
