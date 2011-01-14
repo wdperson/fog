@@ -40,7 +40,7 @@ module Fog
         #    ]
         #  >
         #
-
+        
         def all
           data = [
             { :bits => 0,  :cores =>   2,  :disk => 0,    :id =>  't1.micro',   :name => 'Micro Instance',       :ram => 613},

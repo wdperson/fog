@@ -15,6 +15,17 @@ module Fog
           self.server = attributes.delete(:server)
           super
         end
+        
+        #
+        # allows you to destroy an IP address
+        #
+        # AWS[:compute].addresses.get("184.73.156.210").destroy
+        #
+        # There is a limit of IP addresses at 5.  If you try to create a 6th IP address you will get the following error:
+        # Fog::Service::Error: AddressLimitExceeded => Too many addresses allocated
+        #
+        # So, to be able to add a new IP address when you have the limit of 5 is to first destroy an IP address and then create a new one.
+        #
 
         def destroy
           requires :public_ip
