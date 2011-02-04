@@ -47,7 +47,7 @@ private
     <<-YML
 Missing Credentials
 
-To run as '#{credential}', add the following to your resource config file: #{config_path}
+To run as '#{credential}', add the following to your resource config file: #{credentials_path}
 An alternate file may be used by placing its path in the FOG_RC environment variable
 
 #######################################################
@@ -66,6 +66,7 @@ An alternate file may be used by placing its path in the FOG_RC environment vari
   :go_grid_shared_secret:
   :google_storage_access_key_id:
   :google_storage_secret_access_key:
+  :linode_api_key:
   :local_root:
   :new_servers_password:
   :new_servers_username:

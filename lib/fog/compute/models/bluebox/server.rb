@@ -99,7 +99,7 @@ module Fog
           Fog::SSH.new(ips.first['address'], username, credentials).run([
             %{mkdir .ssh},
             %{echo "#{public_key}" >> ~/.ssh/authorized_keys},
-            %{passwd -l root},
+            %{passwd -l #{username}},
             %{echo "#{attributes.to_json}" >> ~/attributes.json}
           ])
         rescue Errno::ECONNREFUSED
@@ -108,8 +108,11 @@ module Fog
         end
 
         def ssh(commands)
-          requires :identity, :ips, :private_key, :username
-          Fog::SSH.new(ips.first['address'], username, :key_data => [private_key]).run(commands)
+          requires :identity, :ips, :username
+
+          options = {}
+          options[:key_data] = [private_key] if private_key
+          Fog::SSH.new(ips.first['address'], username, options).run(commands)
         end
 
         def username

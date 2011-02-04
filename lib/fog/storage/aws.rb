@@ -21,7 +21,7 @@ module Fog
       requires :aws_access_key_id, :aws_secret_access_key
       recognizes :endpoint, :region, :host, :path, :port, :scheme, :persistent
       recognizes :provider # remove post deprecation
-      
+
       model_path 'fog/storage/models/aws'
       collection  :directories
       model       :directory
@@ -79,14 +79,14 @@ module Fog
 
           if data.is_a?(String)
             metadata[:body] = data
-            metadata[:headers]['Content-Length'] = metadata[:body].size.to_s
+            metadata[:headers]['Content-Length'] = metadata[:body].size
           else
             filename = ::File.basename(data.path)
             unless (mime_types = MIME::Types.of(filename)).empty?
               metadata[:headers]['Content-Type'] = mime_types.first.content_type
             end
             metadata[:body] = data
-            metadata[:headers]['Content-Length'] = ::File.size(data.path).to_s
+            metadata[:headers]['Content-Length'] = ::File.size(data.path)
           end
           # metadata[:headers]['Content-MD5'] = Base64.encode64(Digest::MD5.digest(metadata[:body])).strip
           metadata
@@ -94,13 +94,13 @@ module Fog
 
         def url(params, expires)
           params[:headers]['Date'] = expires.to_i
+          params[:path] = CGI.escape(params[:path]).gsub('%2F', '/')
           query = [params[:query]].compact
           query << "AWSAccessKeyId=#{@aws_access_key_id}"
           query << "Signature=#{CGI.escape(signature(params))}"
           query << "Expires=#{params[:headers]['Date']}"
           bucket = params[:host].split('.').first
-          path = CGI.escape(params[:path]).gsub('%2F', '/')
-          "https://#{@host}/#{path}?#{query.join('&')}"
+          "https://#{@host}/#{params[:path]}?#{query.join('&')}"
         end
 
       end
@@ -111,7 +111,7 @@ module Fog
         def self.acls(type)
           case type
           when 'private'
-            @private ||= {
+            {
               "AccessControlList" => [
                 {
                   "Permission" => "FULL_CONTROL",
@@ -121,32 +121,51 @@ module Fog
               "Owner" => {"DisplayName" => "me", "ID" => "2744ccd10c7533bd736ad890f9dd5cab2adb27b07d500b9493f29cdc420cb2e0"}
             }
           when 'public-read'
-            @public_read ||= begin
-              public_read = self.acls('private').dup
-              public_read['AccessControlList'] << {
-                "Permission" => "READ",
-                "Grantee" => {"URI" => "http://acs.amazonaws.com/groups/global/AllUsers"}
-              }
-              public_read
-            end
+            {
+              "AccessControlList" => [
+                {
+                  "Permission" => "FULL_CONTROL",
+                  "Grantee" => {"DisplayName" => "me", "ID" => "2744ccd10c7533bd736ad890f9dd5cab2adb27b07d500b9493f29cdc420cb2e0"}
+                },
+                {
+                  "Permission" => "READ",
+                  "Grantee" => {"URI" => "http://acs.amazonaws.com/groups/global/AllUsers"}
+                }
+              ],
+              "Owner" => {"DisplayName" => "me", "ID" => "2744ccd10c7533bd736ad890f9dd5cab2adb27b07d500b9493f29cdc420cb2e0"}
+            }
           when 'public-read-write'
-            @public_read_write ||= begin
-              public_read_write = self.acls('public-read').dup
-              public_read_write['AccessControlList'] << {
-                "Permission" => "WRITE",
-                "Grantee" => {"URI" => "http://acs.amazonaws.com/groups/global/AllUsers"}
-              }
-              public_read_write
-            end
+            {
+              "AccessControlList" => [
+                {
+                  "Permission" => "FULL_CONTROL",
+                  "Grantee" => {"DisplayName" => "me", "ID" => "2744ccd10c7533bd736ad890f9dd5cab2adb27b07d500b9493f29cdc420cb2e0"}
+                },
+                {
+                  "Permission" => "READ",
+                  "Grantee" => {"URI" => "http://acs.amazonaws.com/groups/global/AllUsers"}
+                },
+                {
+                  "Permission" => "WRITE",
+                  "Grantee" => {"URI" => "http://acs.amazonaws.com/groups/global/AllUsers"}
+                }
+              ],
+              "Owner" => {"DisplayName" => "me", "ID" => "2744ccd10c7533bd736ad890f9dd5cab2adb27b07d500b9493f29cdc420cb2e0"}
+            }
           when 'authenticated-read'
-            @authenticated_read ||= begin
-              authenticated_read = self.acls('private').dup
-              authenticated_read['AccessControlList'] << {
-                "Permission" => "READ",
-                "Grantee" => {"URI" => "http://acs.amazonaws.com/groups/global/AuthenticatedUsers"}
-              }
-              authenticated_read
-            end
+            {
+              "AccessControlList" => [
+                {
+                  "Permission" => "FULL_CONTROL",
+                  "Grantee" => {"DisplayName" => "me", "ID" => "2744ccd10c7533bd736ad890f9dd5cab2adb27b07d500b9493f29cdc420cb2e0"}
+                },
+                {
+                  "Permission" => "READ",
+                  "Grantee" => {"URI" => "http://acs.amazonaws.com/groups/global/AuthenticatedUsers"}
+                }
+              ],
+              "Owner" => {"DisplayName" => "me", "ID" => "2744ccd10c7533bd736ad890f9dd5cab2adb27b07d500b9493f29cdc420cb2e0"}
+            }
           end
         end
 
@@ -270,7 +289,7 @@ module Fog
         private
 
         def request(params, &block)
-          params[:headers]['Date'] = Time.now.utc.strftime("%a, %d %b %Y %H:%M:%S +0000")
+          params[:headers]['Date'] = Fog::Time.now.to_date_header
           params[:headers]['Authorization'] = "AWS #{@aws_access_key_id}:#{signature(params)}"
           params[:expects] = [307, *params[:expects]].flatten
           # FIXME: ToHashParser should make this not needed

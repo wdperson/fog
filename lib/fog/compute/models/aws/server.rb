@@ -155,7 +155,7 @@ module Fog
 
           commands = [
             %{mkdir .ssh},
-            %{passwd -l root},
+            %{passwd -l #{username}},
             %{echo "#{attributes.to_json}" >> ~/attributes.json}
           ]
           if public_key
@@ -177,8 +177,11 @@ module Fog
         end
 
         def ssh(commands)
-          requires :identity, :ip_address, :private_key, :username
-          Fog::SSH.new(ip_address, username, :key_data => [private_key]).run(commands)
+          requires :identity, :ip_address, :username
+
+          options = {}
+          options[:key_data] = [private_key] if private_key
+          Fog::SSH.new(ip_address, username, options).run(commands)
         end
 
         def start
